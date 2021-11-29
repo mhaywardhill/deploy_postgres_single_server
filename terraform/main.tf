@@ -15,9 +15,9 @@ resource "azurerm_postgresql_server" "example" {
   administrator_login          = var.db_username
   administrator_login_password = var.db_password
 
-  sku_name   = "GP_Gen5_4"
+  sku_name   = "GP_Gen5_2"
   version    = "11"
-  storage_mb = 640000
+  storage_mb = 102400
 
   backup_retention_days        = 7
   geo_redundant_backup_enabled = true
