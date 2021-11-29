@@ -27,3 +27,10 @@ resource "azurerm_postgresql_server" "example" {
   ssl_enforcement_enabled          = true
   ssl_minimal_tls_version_enforced = "TLS1_2"
 }
+
+resource "azurerm_postgresql_configuration" "pg_log_line_prefix" {
+  name                = "log_line_prefix"
+  resource_group_name = azurerm_resource_group.example.name
+  server_name         = azurerm_postgresql_server.example.name
+  value               = "%m-%p-%l-%u-%d-%a-%h- "
+}
