@@ -28,12 +28,19 @@ resource "azurerm_postgresql_server" "example" {
   ssl_minimal_tls_version_enforced = "TLS1_2"
 }
 
+resource "time_sleep" "wait_for_postgresql_server" {
+  create_duration = "60s"
+  depends_on = [
+    azurerm_postgresql_server.example
+  ]
+}
+
 resource "azurerm_postgresql_configuration" "pg_log_line_prefix" {
   name                = "log_line_prefix"
   resource_group_name = azurerm_resource_group.example.name
   server_name         = azurerm_postgresql_server.example.name
-  value               = "%m-%p-%l-%u-%d-%a-%h- "
+  value               = "%m-%p-%l-%u-%d-%a-%h-"
   depends_on          = [
-    azurerm_postgresql_server.example
+    azurerm_postgresql_server.example,time_sleep.wait_for_postgresql_server
   ]
 }
