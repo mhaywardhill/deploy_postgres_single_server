@@ -52,3 +52,13 @@ resource "azurerm_monitor_diagnostic_setting" "postgres_diagnostic_setting" {
     azurerm_postgresql_server.main,time_sleep.wait_for_postgresql_server
   ]
 }
+
+resource "azurerm_postgresql_configuration" "pg_log_line_prefix" {
+  name                = "log_line_prefix"
+  resource_group_name = var.resource_group
+  server_name         = azurerm_postgresql_server.main.name
+  value               = "%m-%p-%l-%u-%d-%a-%h-"
+  depends_on          = [
+    azurerm_postgresql_server.main,time_sleep.wait_for_postgresql_server
+  ]
+}
