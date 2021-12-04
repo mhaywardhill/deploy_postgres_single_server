@@ -41,4 +41,4 @@ Navigate to the environment folder, for example /environments/test, and run the 
 
 #### Notes
 
-Installed Terraform version: hashicorp/azurerm v2.87.0 
+Installed Linux Terraform version: hashicorp/azurerm v2.88.1 

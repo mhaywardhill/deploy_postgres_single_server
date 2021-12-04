@@ -1,7 +1,4 @@
-variable project_name {
-  description = "Project prefix"
-  type        = string
-}
+variable project_name {}
 
 variable location {}
 
