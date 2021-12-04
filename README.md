@@ -13,7 +13,7 @@ Use `az account show` to check the subscription context.
 ### Init, Apply, and Plan, to deploy resources using Terraform
 
 
-Navigate to the terraform folder and run the following commands.
+Navigate to the environment folder, for example /environments/test, and run the following commands.
 
 ```terraform
 ./terraform.exe init
