@@ -1,4 +1,7 @@
-variable project_name {}
+variable project_name {
+  description = "Project prefix"
+  type        = string
+}
 
 variable location {}
 
@@ -10,8 +13,8 @@ variable db_username {
 	default = "KFZH93kuFw"
 }
 
-variable "db_password" {
-  description = "password"
+variable db_password {
+  description = "Password"
   type        = string
   sensitive   = true
 }
