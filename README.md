@@ -9,6 +9,16 @@ az Login
 
 Use `az account show` to check the subscription context.
 
+### Set environment variables
+
+The project prefix is used to name all the resources and db_password to set the Postgres Admin Password.
+
+```variables
+export TF_VAR_project_name="<project prefix>"
+
+export TF_VAR_db_password="<password>"
+```
+
 
 ### Init, Apply, and Plan, to deploy resources using Terraform
 
