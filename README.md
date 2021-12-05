@@ -26,11 +26,11 @@ export TF_VAR_db_password="<password>"
 Navigate to the environment folder, for example /environments/test, and run the following commands.
 
 ```terraform
-./terraform.exe init
+./terraform init
 
-./terraform.exe plan
+./terraform plan
 
-./terraform.exe apply
+./terraform apply
 ```
 
 ### Cleanup Resources
