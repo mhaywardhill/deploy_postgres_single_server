@@ -1,5 +1,5 @@
 
-## Deploy Postgres Single Server in Azure
+## Deploy Postgres Single Server in Azure using Terraform
 
 ### Login to Azure using the CLI
 
