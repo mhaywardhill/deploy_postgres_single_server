@@ -36,7 +36,7 @@ Navigate to the environment folder, for example /environments/test, and run the 
 ### Cleanup Resources
 
 ```
-./terraform.exe destroy
+./terraform destroy
 ```
 
 #### Notes
