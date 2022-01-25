@@ -16,7 +16,8 @@ The project prefix is used to name all the resources and db_password to set the 
 ```variables
 export TF_VAR_project_name="<project prefix>"
 
-export TF_VAR_db_password="<password>"
+HISTCONTROL=ignoreboth
+ export TF_VAR_db_password="<password>"
 ```
 
 
