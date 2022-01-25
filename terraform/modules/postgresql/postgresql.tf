@@ -1,3 +1,11 @@
+resource "random_string" "main" {
+  length  = 8
+  upper   = true
+  lower   = true
+  number  = false
+  special = false
+}
+
 resource "azurerm_postgresql_server" "main" {
   name                = var.server_name
   location            = var.location
