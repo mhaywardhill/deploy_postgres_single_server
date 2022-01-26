@@ -17,7 +17,7 @@ The project prefix is used to name all the resources and db_password to set the 
 export TF_VAR_project_name="<project prefix>"
 
 HISTCONTROL=ignoreboth
- export TF_VAR_db_username="<Admin username>"
+ export TF_VAR_db_username="<admin username>"
  export TF_VAR_db_password="<password>"
 ```
 
@@ -33,6 +33,19 @@ Navigate to the environment folder, for example /environments/test, and run the 
 ./terraform plan
 
 ./terraform apply
+```
+
+### Update server to allow public network access and whitelist my IP
+```
+export resource_group=$(./terraform output -raw resource_group)
+export server_name=$(./terraform output -raw server_name) 
+export my_public_ip=$(curl -s http://whatismyip.akamai.com/)
+
+az postgres server update -g $resource_group -n $server_name --public-network-access Enabled
+
+az postgres server firewall-rule create -g $resource_group -s $server_name -n mymachine --start-ip-address $my_public_ip --end-ip-address $my_public_ip
+
+psql "host=${server_name}.postgres.database.azure.com port=5432 dbname=postgres user=${TF_VAR_db_username}@${server_name} password=$TF_VAR_db_password sslmode=require"
 ```
 
 ### Cleanup Resources
