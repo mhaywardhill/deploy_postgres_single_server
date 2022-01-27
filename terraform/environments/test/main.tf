@@ -18,12 +18,13 @@ module "log_analytics" {
 }
 
 module "postgresql" {
-  source               = "../../modules/postgresql"
-  location             = var.location
-  resource_group       = module.resource_group.resource_group_name
-  server_name	     = "${var.project_name}-pgss-${var.environment_name}"
-  db_username          = var.db_username
-  db_password          = var.db_password
-  project              = var.project_name
+  source                     = "../../modules/postgresql"
+  location                   = var.location
+  resource_group             = module.resource_group.resource_group_name
+  server_name	               = "${var.project_name}-pgss-${var.environment_name}"
+  db_username                = var.db_username
+  db_password                = var.db_password
+  project                    = var.project_name
   log_analytics_workspace_id = module.log_analytics.log_analytics_workspace_id
+  depends_on = [module.log_analytics]
 }

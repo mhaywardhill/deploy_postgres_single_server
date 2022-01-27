@@ -1,18 +1,18 @@
 resource "azurerm_postgresql_server" "main" {
-  name                = var.server_name
-  location            = var.location
-  resource_group_name = var.resource_group
+  name                             = var.server_name
+  location                         = var.location
+  resource_group_name              = var.resource_group
 
-  administrator_login          = var.db_username
-  administrator_login_password = var.db_password
+  administrator_login              = var.db_username
+  administrator_login_password     = var.db_password
 
-  sku_name   = "GP_Gen5_2"
-  version    = "11"
-  storage_mb = 102400
+  sku_name                         = "GP_Gen5_2"
+  version                          = "11"
+  storage_mb                       = 102400
 
-  backup_retention_days        = 7
-  geo_redundant_backup_enabled = true
-  auto_grow_enabled            = true
+  backup_retention_days            = 7
+  geo_redundant_backup_enabled     = true
+  auto_grow_enabled                = true
 
   public_network_access_enabled    = false
   ssl_enforcement_enabled          = true
@@ -21,15 +21,9 @@ resource "azurerm_postgresql_server" "main" {
   tags = {
     project = var.project
   }
-
 }
 
-resource "time_sleep" "wait_for_postgresql_server" {
-  create_duration = "60s"
-  depends_on = [
-    azurerm_postgresql_server.main
-  ]
-}
+
 
 resource "azurerm_monitor_diagnostic_setting" "diagnostic_settings" {
    name     = "diagnosticSettings"
@@ -37,8 +31,8 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic_settings" {
    target_resource_id = azurerm_postgresql_server.main.id
    
   log { 
-    category = "PostgreSQLLogs"
-    enabled = true 
+    category  = "PostgreSQLLogs"
+    enabled   = true 
 
     retention_policy {
       enabled = false
@@ -46,15 +40,15 @@ resource "azurerm_monitor_diagnostic_setting" "diagnostic_settings" {
   }
   
   metric {
-    category = "AllMetrics"
+    category  = "AllMetrics"
 
     retention_policy {
       enabled = false
     }
   }
 
-  depends_on          = [
-    azurerm_postgresql_server.main,time_sleep.wait_for_postgresql_server
+  depends_on  = [
+    azurerm_postgresql_server.main
   ]
 }
 
@@ -68,7 +62,7 @@ resource "azurerm_postgresql_configuration" "configuration" {
     value               = var.server_parameters[count.index].value
 
     depends_on          = [
-      azurerm_postgresql_server.main,time_sleep.wait_for_postgresql_server
+      azurerm_postgresql_server.main
     ]
   
 }
