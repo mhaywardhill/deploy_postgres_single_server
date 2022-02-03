@@ -49,3 +49,12 @@ module "nsg" {
   environment_name    = var.environment_name
   depends_on = [module.network]
 }
+
+module "publicip" {
+  source              = "../../modules/publicip"
+  location            = var.location
+  resource_group      = module.resource_group.resource_group_name
+  project             = var.project_name
+  environment_name    = var.environment_name
+  depends_on = [module.nsg]
+}
