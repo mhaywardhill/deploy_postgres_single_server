@@ -18,6 +18,7 @@ variable db_password {
   sensitive   = true
 }
 
+variable my_public_ip {}
 
 
 

@@ -38,3 +38,14 @@ module "network" {
   project              = var.project_name
   environment_name     = var.environment_name
 }
+
+module "nsg" {
+  source              = "../../modules/networksecuritygroup"
+  location            = var.location
+  resource_group      = module.resource_group.resource_group_name
+  vm_subnet_id        = module.network.vm_subnet_id
+  project             = var.project_name
+  my_public_ip        = var.my_public_ip
+  environment_name    = var.environment_name
+  depends_on = [module.network]
+}

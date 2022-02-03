@@ -9,7 +9,7 @@ resource "azurerm_virtual_network" "main" {
   }
 }
 
-resource "azurerm_subnet" "pgbouncer" {
+resource "azurerm_subnet" "vm" {
   name                 = "snet-${var.project}-vm-${var.environment_name}"
   resource_group_name  = var.resource_group
   virtual_network_name = azurerm_virtual_network.main.name
