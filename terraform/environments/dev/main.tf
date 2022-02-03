@@ -33,8 +33,8 @@ module "network" {
   source              = "../../modules/network"
   location            = var.location
   resource_group      = module.resource_group.resource_group_name
-  address_space       = ["10.0.0.0/16"]
-  address_prefixes    = ["10.0.2.0/24"]
+  address_space       = ["10.1.0.0/16"]
+  address_prefixes    = ["10.1.0.0/24"]
   project             = var.project_name
   environment_name    = var.environment_name
 }
@@ -47,7 +47,10 @@ module "nsg" {
   project             = var.project_name
   my_public_ip        = var.my_public_ip
   environment_name    = var.environment_name
-  depends_on = [module.network]
+  depends_on = [
+      module.network,
+      module.privatelink
+      ]
 }
 
 module "publicip" {
@@ -69,4 +72,19 @@ module "vm" {
   vm_username           = var.vm_username
   environment_name      = var.environment_name
   depends_on = [module.publicip]
+}
+
+module "privatelink" {
+  source                    = "../../modules/privatelink"
+  location                  = var.location
+  resource_group            = module.resource_group.resource_group_name
+  subnet_id                 = module.network.vm_subnet_id
+  postgresql_id             = module.postgresql.server_id
+  private_dns_zone_id       = module.network.private_dns_zone_id
+  project                   = var.project_name
+  environment_name          = var.environment_name
+  depends_on = [
+      module.network,
+      module.postgresql
+      ]
 }
