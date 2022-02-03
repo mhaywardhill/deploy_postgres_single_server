@@ -20,5 +20,7 @@ variable db_password {
 
 variable my_public_ip {}
 
+variable vm_username {}
+
 
 

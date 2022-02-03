@@ -30,13 +30,13 @@ module "postgresql" {
 }
 
 module "network" {
-  source               = "../../modules/network"
-  location             = var.location
-  resource_group       = module.resource_group.resource_group_name
-  address_space        = ["10.0.0.0/16"]
+  source              = "../../modules/network"
+  location            = var.location
+  resource_group      = module.resource_group.resource_group_name
+  address_space       = ["10.0.0.0/16"]
   address_prefixes    = ["10.0.2.0/24"]
-  project              = var.project_name
-  environment_name     = var.environment_name
+  project             = var.project_name
+  environment_name    = var.environment_name
 }
 
 module "nsg" {
@@ -57,4 +57,16 @@ module "publicip" {
   project             = var.project_name
   environment_name    = var.environment_name
   depends_on = [module.nsg]
+}
+
+module "vm" {
+  source                = "../../modules/vm"
+  location              = var.location
+  resource_group        = module.resource_group.resource_group_name
+  subnet_id             = module.network.vm_subnet_id
+  public_ip_address_id  = module.publicip.public_ip_address_id
+  project               = var.project_name
+  vm_username           = var.vm_username
+  environment_name      = var.environment_name
+  depends_on = [module.publicip]
 }

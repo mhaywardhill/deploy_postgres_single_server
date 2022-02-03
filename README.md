@@ -24,6 +24,8 @@ export TF_VAR_project_name="<project prefix>"
 
 export TF_VAR_my_public_ip=$(curl -s http://whatismyip.akamai.com/)
 
+export TF_VAR_vm_username="<vm admin username>" 
+
 HISTCONTROL=ignoreboth
  export TF_VAR_db_username="<admin username>"
  export TF_VAR_db_password="<password>"
